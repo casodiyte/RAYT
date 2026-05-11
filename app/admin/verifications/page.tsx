@@ -31,7 +31,7 @@ import { useModal } from "@/context/ModalContext";
 export default function AdminVerifications() {
     const { profile, loading: authLoading, signOut } = useAuth();
     const router = useRouter();
-    const { showAlert, showConfirm } = useModal();
+    const { showAlert, showConfirm, showPrompt } = useModal();
     const [view, setView] = useState<'DASHBOARD' | 'VERIFICATIONS' | 'USERS'>('DASHBOARD');
     const [pendingDrivers, setPendingDrivers] = useState<any[]>([]);
     const [allUsers, setAllUsers] = useState<any[]>([]);
