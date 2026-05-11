@@ -46,12 +46,12 @@ export default function VerificationPage() {
         if (profile?.driver && !formData.plate && !formData.vehicle_model) {
             setFormData(prev => ({
                 ...prev,
-                plate: profile.driver?.plate || "",
-                economic_number: profile.driver?.economic_number || "",
-                vehicle_model: profile.driver?.vehicle_model || "",
-                vehicle_year: profile.driver?.vehicle_year || "",
-                vehicle_color: profile.driver?.vehicle_color || "",
-                is_concessionaire: profile.driver?.is_concessionaire ?? true,
+                plate: profile?.driver?.plate || "",
+                economic_number: profile?.driver?.economic_number || "",
+                vehicle_model: profile?.driver?.vehicle_model || "",
+                vehicle_year: profile?.driver?.vehicle_year || "",
+                vehicle_color: profile?.driver?.vehicle_color || "",
+                is_concessionaire: profile?.driver?.is_concessionaire ?? true,
             }));
         }
     }, [profile, router]);

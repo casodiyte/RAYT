@@ -174,8 +174,8 @@ export default function ProfilePage() {
                                     onSubmit={handleSupportSubmit}
                                     className="space-y-6"
                                 >
-                                    <input type="hidden" name="user_name" value={profile.name} />
-                                    <input type="hidden" name="user_phone" value={profile.phone || 'No registrado'} />
+                                    <input type="hidden" name="user_name" value={profile?.name || ''} />
+                                    <input type="hidden" name="user_phone" value={profile?.phone || 'No registrado'} />
                                     <input type="hidden" name="user_email" value={user?.email || ''} />
 
                                     <div>
@@ -240,7 +240,7 @@ export default function ProfilePage() {
                     <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-4 border border-white/30 shadow-inner">
                         <User size={48} className="text-white" />
                     </div>
-                    <h1 className="text-2xl font-black uppercase tracking-tight tabular-nums">{profile.name}</h1>
+                    <h1 className="text-2xl font-black uppercase tracking-tight tabular-nums">{profile?.name || 'Usuario'}</h1>
                     <div className="flex items-center gap-2 mt-2 opacity-70">
                         <Award size={14} className="text-orange-400" />
                         <span className="text-xs font-bold uppercase tracking-widest">{isDriver ? 'Conductor Elite' : 'Pasajero VIP'}</span>
@@ -270,7 +270,7 @@ export default function ProfilePage() {
             <div className="p-6 space-y-8">
                 
                 {/* ADMIN DASHBOARD LINK (ONLY FOR ADMINS) */}
-                {profile.role === 'ADMIN' && (
+                {profile?.role === 'ADMIN' && (
                     <section className="animate-in fade-in slide-in-from-top-4">
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400 flex items-center gap-2">
