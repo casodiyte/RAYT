@@ -104,12 +104,12 @@ export default function RequestRidePage() {
         <div className="max-w-md mx-auto bg-white min-h-screen shadow-sm sm:rounded-xl sm:min-h-0 sm:my-8 sm:overflow-hidden relative">
             <div className="bg-black text-white p-4 sticky top-0 z-10">
                 <h1 className="text-xl font-bold flex items-center gap-2">
-                    <img src="/car-logo.png" alt="Logo" className="w-8 h-auto" /> TaxiBid
+                    <img src="/car-logo.png" alt="Logo" className="w-8 h-auto" /> RAYT
                 </h1>
                 <p className="text-xs text-gray-400">Solicitar un viaje</p>
             </div>
 
-            <div className="p-6 space-y-8 pb-24">
+            <div className="p-6 space-y-8 pb-48">
                 {/* Section 1: Pickup */}
                 <section className="space-y-4">
                     <div className="flex items-center gap-2 text-sm font-semibold text-gray-900 border-b pb-1">
@@ -188,7 +188,7 @@ export default function RequestRidePage() {
                 </section>
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t sm:absolute">
+            <div className="fixed bottom-20 left-0 right-0 p-4 bg-white border-t sm:bottom-0 sm:absolute">
                 <button
                     onClick={handleSubmit}
                     disabled={!canSubmit || loading}

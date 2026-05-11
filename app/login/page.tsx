@@ -98,7 +98,7 @@ export default function LoginPage() {
                         <img src="/car-logo.png" alt="Logo" className="w-10 h-auto" />
                     </Link>
                     <h1 className="text-2xl font-black text-white tracking-tighter">
-                        TaxiBid<span className="text-[#FFC107]">.</span>
+                        RAYT<span className="text-[#FFC107]">.</span>
                     </h1>
                 </motion.div>
             </div>

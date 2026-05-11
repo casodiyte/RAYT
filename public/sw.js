@@ -1,5 +1,5 @@
 self.addEventListener('push', function(event) {
-  const data = event.data?.json() || { title: 'TaxiBid', body: 'Tienes una nueva actualización.' };
+  const data = event.data?.json() || { title: 'RAYT', body: 'Tienes una nueva actualización.' };
   
   const options = {
     body: data.body,

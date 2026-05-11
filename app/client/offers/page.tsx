@@ -152,7 +152,7 @@ export default function OffersPage() {
     };
 
     return (
-        <div className="max-w-md mx-auto p-4 min-h-screen bg-gray-50 pb-24 relative">
+        <div className="max-w-md mx-auto p-4 min-h-screen bg-gray-50 pb-48 relative">
             <h1 className="text-2xl font-bold mb-2">Conductores Haciendo Ofertas</h1>
             <p className="text-gray-500 mb-6 text-sm italic">Espera a que los conductores oferten por tu viaje...</p>
 

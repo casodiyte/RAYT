@@ -59,7 +59,7 @@ export function PermissionBanner() {
 
                 <div className="space-y-6 relative z-10">
                     <div>
-                        <h3 className="text-xl font-black uppercase tracking-tight text-white leading-tight">Configurar TaxiBid</h3>
+                        <h3 className="text-xl font-black uppercase tracking-tight text-white leading-tight">Configurar RAYT</h3>
                         <p className="text-xs text-gray-400 mt-1 font-medium tracking-wide">Para una experiencia premium, activa los permisos:</p>
                     </div>
 

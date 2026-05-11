@@ -30,7 +30,7 @@ export default function Home() {
                         <img src="/car-logo.png" alt="TaxiBid Logo" className="w-16 h-auto" />
                     </div>
                     <h1 className="text-5xl font-black text-white tracking-tighter">
-                        TaxiBid<span className="text-[#FFC107]">.</span>
+                        RAYT<span className="text-[#FFC107]">.</span>
                     </h1>
                     <p className="text-[#FFC107] text-[10px] font-black uppercase tracking-[0.4em] mt-2">
                         Premium Mobility
@@ -93,7 +93,7 @@ export default function Home() {
                     </Link>
                     
                     <p className="text-center text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-6">
-                        TaxiBid v1.0.2 • Premium Experience
+                        RAYT v1.0.2 • Premium Experience
                     </p>
                 </motion.div>
             </div>

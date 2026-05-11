@@ -153,7 +153,7 @@ export default function ProfilePage() {
                     <div className="relative w-full max-w-sm bg-white rounded-[40px] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 h-auto max-h-[90vh]">
                         <div className="p-8 border-b flex justify-between items-center bg-gray-50/50">
                             <div>
-                                <h3 className="font-black uppercase tracking-widest text-lg">Soporte TaxiBid</h3>
+                                <h3 className="font-black uppercase tracking-widest text-lg">Soporte RAYT</h3>
                             </div>
                             <button onClick={() => !isSubmitting && setIsSupportOpen(false)} className="p-2 hover:bg-gray-200 rounded-full"><X size={20} /></button>
                         </div>
@@ -403,7 +403,7 @@ export default function ProfilePage() {
                         <LogOut size={20} />
                         Cerrar Sesión
                     </button>
-                    <p className="text-center text-[10px] uppercase tracking-tighter text-gray-300 mt-4 font-black">TaxiBid v1.0.2 - Premium Experience</p>
+                    <p className="text-center text-[10px] uppercase tracking-tighter text-gray-300 mt-4 font-black">RAYT v1.0.2 - Premium Experience</p>
                 </div>
 
             </div>

@@ -41,7 +41,7 @@ export default function SplashScreen({ finishLoading }: { finishLoading: () => v
                     >
                         <img 
                             src="/car-logo.png" 
-                            alt="TaxiBid Logo" 
+                            alt="RAYT Logo" 
                             className="w-24 h-auto animate-pulse" 
                         />
                     </motion.div>
@@ -52,7 +52,7 @@ export default function SplashScreen({ finishLoading }: { finishLoading: () => v
                         transition={{ delay: 0.5, duration: 0.8 }}
                         className="text-4xl font-black text-white tracking-tighter"
                     >
-                        TaxiBid<span className="text-[#FFC107]">.</span>
+                        RAYT<span className="text-[#FFC107]">.</span>
                     </motion.h1>
 
                     <motion.div

@@ -177,7 +177,7 @@ export default function DriverRequestsPage() {
     };
 
     return (
-        <div className="max-w-md mx-auto p-4 space-y-4 pb-24">
+        <div className="max-w-md mx-auto p-4 space-y-4 pb-32">
             {notification && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl relative flex items-center justify-between shadow-sm animate-in slide-in-from-top-4">
                     <span className="block sm:inline font-medium">{notification}</span>
@@ -241,7 +241,7 @@ export default function DriverRequestsPage() {
                                 <div className="mb-3">
                                     <p className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-1">Pasajero</p>
                                     <p className="text-base font-black text-gray-900 uppercase tracking-tight">
-                                        {req.profiles?.name || "Usuario TaxiBid"}
+                                        {req.profiles?.name || "Usuario RAYT"}
                                     </p>
                                 </div>
 

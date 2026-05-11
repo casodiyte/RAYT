@@ -12,12 +12,12 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "TaxiBid",
+  title: "RAYT",
   description: "Tu viaje, tu precio. Negocia y viaja seguro.",
   manifest: "/manifest.json",
   icons: {
-    icon: "/icon-192.png",
-    apple: "/icon-192.png",
+    icon: "/car-logo.png",
+    apple: "/car-logo.png",
   }
 };
 

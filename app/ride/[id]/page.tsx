@@ -286,12 +286,12 @@ export default function RidePage() {
     const currentWaitingFee = ride.status === 'ARRIVED' ? extraFee : (ride.waiting_fee || 0);
 
     return (
-        <div className="max-w-md mx-auto p-4 min-h-screen bg-white pb-24 relative overflow-hidden">
+        <div className="max-w-md mx-auto p-4 min-h-screen bg-white pb-48 relative overflow-hidden">
             {/* BUTTON CHAT FLOATING */}
             {!isCompleted && !isCancelled && ride.status !== 'AWAITING_PAYMENT' && (
                 <button 
                     onClick={() => { setIsChatOpen(true); setUnreadCount(0); }}
-                    className="fixed bottom-6 right-6 z-40 bg-black text-white p-4 rounded-full shadow-2xl active:scale-95 transition-transform"
+                    className="fixed bottom-24 right-6 z-40 bg-black text-white p-4 rounded-full shadow-2xl active:scale-95 transition-transform"
                 >
                     <div className="relative">
                         <MessageSquare size={24} />
