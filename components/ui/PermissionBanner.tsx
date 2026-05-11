@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { MapPin, Bell, ChevronRight, X } from "lucide-react";
+import { useModal } from "@/context/ModalContext";
 
 export function PermissionBanner() {
     const [showLocation, setShowLocation] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [requesting, setRequesting] = useState(false);
+    const { showAlert } = useModal();
 
     useEffect(() => {
         const checkPermissions = async () => {
@@ -29,16 +32,43 @@ export function PermissionBanner() {
     }, []);
 
     const requestLocation = () => {
+        if (!("geolocation" in navigator)) {
+            showAlert("Error", "Tu navegador no soporta geolocalización.", "warning");
+            return;
+        }
+
+        setRequesting(true);
         navigator.geolocation.getCurrentPosition(
-            () => setShowLocation(false),
-            () => setShowLocation(false) // Hide even if error to stay clean
+            (position) => {
+                setShowLocation(false);
+                setRequesting(false);
+            },
+            (error) => {
+                setRequesting(false);
+                if (error.code === error.PERMISSION_DENIED) {
+                    showAlert("GPS Desactivado", "Has denegado el acceso a la ubicación. Por favor, actívalo en la configuración de tu navegador para continuar.", "warning");
+                }
+                setShowLocation(false);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
     };
 
     const requestNotifications = () => {
+        if (!("Notification" in window)) {
+            showAlert("Error", "Tu navegador no soporta notificaciones.", "warning");
+            return;
+        }
+
+        setRequesting(true);
         Notification.requestPermission().then((permission) => {
-            if (permission === "granted") setShowNotifications(false);
-            else setShowNotifications(false);
+            setRequesting(false);
+            if (permission === "granted") {
+                setShowNotifications(false);
+            } else {
+                showAlert("Aviso", "Has denegado las notificaciones. Puedes activarlas luego en la configuración.", "info");
+                setShowNotifications(false);
+            }
         });
     };
 
@@ -71,7 +101,7 @@ export function PermissionBanner() {
                             >
                                 <div className="flex items-center gap-4 text-left">
                                     <div className="w-10 h-10 rounded-xl bg-[#FFC107]/10 flex items-center justify-center text-[#FFC107]">
-                                        <MapPin size={22} />
+                                        {requesting ? <div className="w-5 h-5 border-2 border-[#FFC107] border-t-transparent rounded-full animate-spin" /> : <MapPin size={22} />}
                                     </div>
                                     <div>
                                         <p className="text-sm font-black uppercase tracking-tighter">Ubicación GPS</p>

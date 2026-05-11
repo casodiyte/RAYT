@@ -6,6 +6,8 @@ import { NotificationProvider } from "@/context/NotificationContext";
 import { PWARegistration } from "@/components/PWARegistration";
 import { PermissionBanner } from "@/components/ui/PermissionBanner";
 
+import { ModalProvider } from "@/context/ModalContext";
+
 const poppins = Poppins({ 
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -31,9 +33,11 @@ export default function RootLayout({
       <body className={poppins.className}>
         <AuthProvider>
           <NotificationProvider>
-            <PWARegistration />
-            <PermissionBanner />
-            {children}
+            <ModalProvider>
+              <PWARegistration />
+              <PermissionBanner />
+              {children}
+            </ModalProvider>
           </NotificationProvider>
         </AuthProvider>
       </body>

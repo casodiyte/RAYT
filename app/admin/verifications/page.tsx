@@ -26,10 +26,12 @@ import {
     Camera
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/context/ModalContext";
 
 export default function AdminVerifications() {
     const { profile, loading: authLoading, signOut } = useAuth();
     const router = useRouter();
+    const { showAlert, showConfirm } = useModal();
     const [view, setView] = useState<'DASHBOARD' | 'VERIFICATIONS' | 'USERS'>('DASHBOARD');
     const [pendingDrivers, setPendingDrivers] = useState<any[]>([]);
     const [allUsers, setAllUsers] = useState<any[]>([]);
@@ -98,14 +100,33 @@ export default function AdminVerifications() {
         } catch (err) { console.error(err); } finally { setLoading(false); }
     };
     
-    const handleAction = async (userId: string, status: 'APPROVED' | 'REJECTED') => {
-        let reason = "";
+    const handleAction = (userId: string, status: 'APPROVED' | 'REJECTED') => {
         if (status === 'REJECTED') {
-            reason = prompt("Motivo del rechazo:") || "Información incompleta";
-            if (!reason) return;
+            showPrompt(
+                "Motivo del Rechazo",
+                "Indica por qué se rechaza al conductor:",
+                (reason) => {
+                    if (reason.trim()) {
+                        processAction(userId, status, reason);
+                    } else {
+                        showAlert("Error", "Debes ingresar un motivo para el rechazo.", "warning");
+                    }
+                },
+                { confirmText: "Rechazar", cancelText: "Volver" }
+            );
+        } else {
+            showConfirm(
+                "Aprobar Conductor",
+                "¿Estás seguro de que deseas aprobar a este conductor? Se limpiarán los documentos de la base de datos.",
+                () => processAction(userId, status),
+                { type: "confirm", confirmText: "Aprobar", cancelText: "Volver" }
+            );
         }
+    };
 
+    const processAction = async (userId: string, status: 'APPROVED' | 'REJECTED', reason: string = "") => {
         try {
+            setLoading(true);
             // If approved, we can clean up the storage files to save space as per requirement
             if (status === 'APPROVED' && selectedDriver) {
                 const filesToDelete = [
@@ -117,7 +138,6 @@ export default function AdminVerifications() {
                     selectedDriver.photo_side_url,
                     selectedDriver.owner_auth_url
                 ].filter(url => url && url.includes('documents/')).map(url => {
-                    // Extract path after 'documents/'
                     const parts = url.split('documents/');
                     return parts[1];
                 });
@@ -132,8 +152,6 @@ export default function AdminVerifications() {
                 .update({ 
                     status, 
                     rejection_reason: reason,
-                    // Clear URLs on approval/rejection if desired, or keep them. 
-                    // User said "remembers that on approval it deletes the files", so we clear the DB references too.
                     ...(status === 'APPROVED' ? {
                         ine_url: null, license_url: null, insurance_url: null, 
                         circulation_url: null, photo_front_url: null, photo_side_url: null, 
@@ -146,10 +164,12 @@ export default function AdminVerifications() {
             
             setSelectedDriver(null); 
             fetchData();
-            alert(status === 'APPROVED' ? "Chofer aprobado y archivos limpiados." : "Chofer rechazado.");
+            showAlert("Éxito", status === 'APPROVED' ? "Chofer aprobado y archivos limpiados." : "Chofer rechazado.", "success");
         } catch (err) { 
             console.error(err); 
-            alert("Error al procesar la acción.");
+            showAlert("Error", "Error al procesar la acción.", "warning");
+        } finally {
+            setLoading(false);
         }
     };
 

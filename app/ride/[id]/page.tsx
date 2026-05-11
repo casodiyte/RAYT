@@ -7,11 +7,13 @@ import { useAuth } from "@/context/AuthContext";
 import { Loader2, Phone, MapPin, CheckCircle, Car, Navigation, MessageSquare, Send, X } from "lucide-react";
 import { NavigationButtons } from "@/components/NavigationButtons";
 import { Map, MapMarker, MarkerContent, MapRoute } from "@/components/ui/map";
+import { useModal } from "@/context/ModalContext";
 
 export default function RidePage() {
     const { id } = useParams();
     const { user, profile } = useAuth();
     const router = useRouter();
+    const { showConfirm } = useModal();
 
     const [ride, setRide] = useState<any>(null);
     const [request, setRequest] = useState<any>(null);
@@ -546,7 +548,12 @@ export default function RidePage() {
                         
                         {(ride.status === 'MATCHED' || ride.status === 'EN_ROUTE' || ride.status === 'ARRIVED') && (
                             <button 
-                                onClick={() => confirm("¿Estás seguro de cancelar este viaje? Se le notificará al cliente.") && updateStatus("CANCELLED")} 
+                                onClick={() => showConfirm(
+                                    "¿Cancelar Viaje?",
+                                    "¿Estás seguro de cancelar este viaje? Se le notificará al cliente.",
+                                    () => updateStatus("CANCELLED"),
+                                    { type: "warning", confirmText: "Sí, cancelar", cancelText: "Volver" }
+                                )} 
                                 className="w-full mt-4 text-red-500 font-bold text-sm py-3 border border-red-100 rounded-xl hover:bg-red-50 transition-colors"
                             >
                                 Cancelar Viaje
@@ -563,7 +570,12 @@ export default function RidePage() {
                         
                         {(ride.status === 'MATCHED' || ride.status === 'EN_ROUTE' || ride.status === 'ARRIVED') && (
                             <button 
-                                onClick={() => confirm("¿Deseas cancelar tu viaje?") && updateStatus("CANCELLED")} 
+                                onClick={() => showConfirm(
+                                    "¿Cancelar Viaje?",
+                                    "¿Deseas cancelar tu viaje?",
+                                    () => updateStatus("CANCELLED"),
+                                    { type: "warning", confirmText: "Sí, cancelar", cancelText: "Volver" }
+                                )} 
                                 className="w-full text-red-500 font-bold text-sm py-4 border border-red-100 rounded-xl hover:bg-red-50 transition-colors"
                             >
                                 Cancelar mi Viaje

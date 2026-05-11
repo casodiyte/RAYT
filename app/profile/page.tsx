@@ -25,10 +25,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/context/ModalContext";
 
 export default function ProfilePage() {
     const { user, profile, signOut, loading: authLoading } = useAuth();
     const router = useRouter();
+    const { showAlert, showConfirm } = useModal();
     const [stats, setStats] = useState({
         totalRides: 0,
         totalSpent: 0,
@@ -55,9 +57,12 @@ export default function ProfilePage() {
     }, [user, profile]);
 
     const handlePanic = () => {
-        if (confirm("¡ALERTA! ¿Deseas llamar a los servicios de emergencia (911) ahora?")) {
-            window.location.href = "tel:911";
-        }
+        showConfirm(
+            "¡EMERGENCIA!", 
+            "¿Deseas llamar a los servicios de emergencia (911) ahora?",
+            () => { window.location.href = "tel:911"; },
+            { type: "warning", confirmText: "Llamar ahora", cancelText: "Volver" }
+        );
     };
 
     const handleSupportSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -83,7 +88,7 @@ export default function ProfilePage() {
             }
         } catch (err) {
             console.error("Error sending form:", err);
-            alert("Hubo un problema enviando el reporte. Reintenta.");
+            showAlert("Error", "Hubo un problema enviando el reporte. Reintenta.", "warning");
         } finally {
             setIsSubmitting(false);
         }

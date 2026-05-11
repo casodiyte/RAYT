@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { Loader2, DollarSign, UserCircle, Check } from "lucide-react";
 import { useNotification } from "@/context/NotificationContext";
+import { useModal } from "@/context/ModalContext";
 
 interface Offer {
     id: string;
@@ -20,6 +21,7 @@ interface Offer {
 export default function OffersPage() {
     const router = useRouter();
     const { showNotification } = useNotification();
+    const { showConfirm } = useModal();
     const searchParams = useSearchParams();
     const requestId = searchParams.get("id");
 
@@ -132,23 +134,29 @@ export default function OffersPage() {
 
     const handleCancel = async () => {
         if (!requestId) return;
-        if (!confirm("¿Estás seguro de que deseas cancelar tu solicitud de viaje?")) return;
         
-        try {
-            setLoading(true);
-            const { error } = await supabase
-                .from("ride_requests")
-                .update({ status: "CANCELLED" })
-                .eq("id", requestId);
+        showConfirm(
+            "¿Cancelar Solicitud?",
+            "¿Estás seguro de que deseas cancelar tu solicitud de viaje?",
+            async () => {
+                try {
+                    setLoading(true);
+                    const { error } = await supabase
+                        .from("ride_requests")
+                        .update({ status: "CANCELLED" })
+                        .eq("id", requestId);
 
-            if (error) throw error;
-            router.push("/client/request-ride");
-        } catch (err) {
-            console.error(err);
-            showNotification("No se pudo cancelar la solicitud.", "error");
-        } finally {
-            setLoading(false);
-        }
+                    if (error) throw error;
+                    router.push("/client/request-ride");
+                } catch (err) {
+                    console.error(err);
+                    showNotification("No se pudo cancelar la solicitud.", "error");
+                } finally {
+                    setLoading(false);
+                }
+            },
+            { type: "warning", confirmText: "Sí, cancelar", cancelText: "Volver" }
+        );
     };
 
     return (
